@@ -1,3 +1,5 @@
+package base;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.hager.config.ConfigurationManager;
 import org.openqa.selenium.WebDriver;

@@ -1,3 +1,4 @@
+import base.BaseTest;
 import org.hager.pages.LandingPage;
 import org.hager.utils.webdriver.WaitUtils;
 import org.testng.Assert;
