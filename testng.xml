@@ -4,7 +4,7 @@
     <test  name="D:/testing/testng/ECommerceTestNG">
         <classes>
             <class name="ErrorValidationsTest"/>
-            <class name="SubmitOrderTest"/>
+            <class name="tests.endtoend.orderflow.EndToEndOrderFlowTest"/>
         </classes>
     </test>
 </suite>
