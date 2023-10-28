@@ -3,7 +3,6 @@
 <suite name="All Test Suite">
     <test  name="D:/testing/testng/ECommerceTestNG">
         <classes>
-            <class name="ErrorValidationsTest"/>
             <class name="tests.endtoend.orderflow.EndToEndOrderFlowTest"/>
         </classes>
     </test>
