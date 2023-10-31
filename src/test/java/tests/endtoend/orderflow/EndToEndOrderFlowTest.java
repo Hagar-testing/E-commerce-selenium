@@ -6,51 +6,62 @@ import org.hager.utils.webdriver.JavascriptExecutorUtils;
 import org.hager.utils.webdriver.WaitUtils;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
 public class EndToEndOrderFlowTest extends BaseTest {
+    private static final String USER_EMAIL = "hajer.ibr@gmail.com";
+    private static final String USER_PASSWORD = "Hajer_95";
+    private WaitUtils waitUtils;
+    private JavascriptExecutorUtils jsExecutorUtils;
+    private ProductsPage productsPage;
+    private LandingPage landingPage;
+
+    private CartPage cartPage;
+
+    private List<WebElement> filteredProducts;
+    @BeforeMethod
+    public void setUp() {
+        waitUtils = new WaitUtils(driver);
+        jsExecutorUtils = new JavascriptExecutorUtils(driver);
+    }
 
     @Test
-    public void submitOrder() {
-        // Initialize utility classes
-        WaitUtils waitUtils = new WaitUtils(driver);
-        JavascriptExecutorUtils javascriptExecutorUtils = new JavascriptExecutorUtils(driver);
-
-        // Initialize page objects
-        LandingPage landingPage = new LandingPage(driver, waitUtils);
-        ProductsPage productsPage = new ProductsPage(driver, waitUtils);
-        Header header = new Header(driver, waitUtils, javascriptExecutorUtils);
-        CartPage cartPage = new CartPage(driver, waitUtils,javascriptExecutorUtils);
-        CheckoutPage checkoutPage = new CheckoutPage(driver, waitUtils,javascriptExecutorUtils);
-
-        // Test Steps
+    public void login() {
+        landingPage = new LandingPage(driver, waitUtils);
         landingPage.open();
-        landingPage.login("hajer.ibr@gmail.com", "Hajer_95");
+        landingPage.login(USER_EMAIL, USER_PASSWORD);
+    }
 
-        // Navigate to the products page
+    @Test(dependsOnMethods = "login")
+    public void navigateToProductsPage() {
         productsPage = landingPage.transitionToProductsPage();
+    }
 
-
-
-        // Search for and add products to the cart
+    @Test(dependsOnMethods = "navigateToProductsPage")
+    public void searchProductsAndAddProductsToCart() {
         String productNameToSearch = "zara coat 3";
-        List<WebElement> filteredProducts = productsPage.getFilteredProductsByProductName(productNameToSearch);
-        List<String> filteredProductsNamesList = productsPage.getFilteredProductsNames(filteredProducts);
+        filteredProducts = productsPage.getFilteredProductsByProductName(productNameToSearch);
         productsPage.addProductsToCart(filteredProducts);
-        // Verify successful product addition
         Assert.assertEquals("Product Added To Cart", productsPage.getToastMessageText());
+    }
 
-        // Proceed to cart and verify the cart contents
-        header.goToCartPage();
+    @Test(dependsOnMethods = "searchProductsAndAddProductsToCart")
+    public void proceedToCartAndVerifyContents() {
+        Header header = new Header(driver, waitUtils, jsExecutorUtils);
+        List<String> filteredProductsNamesList = productsPage.getFilteredProductsNames(filteredProducts);
+        cartPage = header.goToCartPage();
         List<String> productsInCart = cartPage.getProductsListInCart();
         Assert.assertEquals(filteredProductsNamesList, productsInCart);
+    }
 
-        // Proceed to checkout and complete the order
+    @Test(dependsOnMethods = "proceedToCartAndVerifyContents")
+    public void completeOrder() {
         cartPage.clickOnCheckoutButton();
+        CheckoutPage checkoutPage = cartPage.goToCheckoutPage();
         checkoutPage.selectCountry("Egy");
         checkoutPage.selectPlaceOrderButton();
     }
 }
-
