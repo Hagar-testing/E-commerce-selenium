@@ -9,12 +9,11 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
 import java.util.List;
 
 public class EndToEndOrderFlowTest extends BaseTest {
     private WaitUtils waitUtils;
-    private JavascriptExecutorUtils jsExecutorUtils;
+    private JavascriptExecutorUtils javascriptExecutorUtils;
     private ProductsPage productsPage;
     private LandingPage landingPage;
     private CartPage cartPage;
@@ -23,35 +22,37 @@ public class EndToEndOrderFlowTest extends BaseTest {
     @BeforeMethod
     public void setUp() {
         waitUtils = new WaitUtils(driver);
-        jsExecutorUtils = new JavascriptExecutorUtils(driver);
+        javascriptExecutorUtils = new JavascriptExecutorUtils(driver);
     }
 
     @Test(dataProvider = "loginData")
-    public void login(String userEmail, String userPassword) {
+    public void verifyLogin(String userEmail, String userPassword) {
         landingPage = new LandingPage(driver, waitUtils);
         landingPage.open();
         landingPage.login(userEmail, userPassword);
     }
 
-    @Test(dependsOnMethods = "login")
+    @Test(dependsOnMethods = "verifyLogin")
     public void navigateToProductsPage() {
         productsPage = landingPage.transitionToProductsPage();
     }
 
     @Test(dependsOnMethods = "navigateToProductsPage", dataProvider = "productNameData")
-    public void searchProductsAndAddProductsToCart(String productNameToSearch) {
+    public void searchProductsAndAddToCart(String productNameToSearch) {
         filteredProducts = productsPage.getFilteredProductsByProductName(productNameToSearch);
         productsPage.addProductsToCart(filteredProducts);
-        Assert.assertEquals("Product Added To Cart", productsPage.getToastMessageText());
+        String expectedMessage = "Product Added To Cart";
+        String actualMessage = productsPage.getToastMessageText();
+        Assert.assertEquals(actualMessage, expectedMessage, "Toast message does not match the expected value");
     }
 
-    @Test(dependsOnMethods = "searchProductsAndAddProductsToCart")
+    @Test(dependsOnMethods = "searchProductsAndAddToCart")
     public void proceedToCartAndVerifyContents() {
-        Header header = new Header(driver, waitUtils, jsExecutorUtils);
+        Header header = new Header(driver, waitUtils, javascriptExecutorUtils);
         List<String> filteredProductsNamesList = productsPage.getFilteredProductsNames(filteredProducts);
         cartPage = header.goToCartPage();
         List<String> productsInCart = cartPage.getProductsListInCart();
-        Assert.assertEquals(filteredProductsNamesList, productsInCart);
+        Assert.assertEquals(filteredProductsNamesList, productsInCart, "Cart contents do not match the expected products");
     }
 
     @Test(dependsOnMethods = "proceedToCartAndVerifyContents", dataProvider = "countriesData")
@@ -70,7 +71,7 @@ public class EndToEndOrderFlowTest extends BaseTest {
     }
 
     @DataProvider(name = "productNameData")
-    public Object[][] productsNameData() {
+    public Object[][] productNameData() {
         return new Object[][] {
                 { "zara coat 3"},
         };
@@ -82,5 +83,4 @@ public class EndToEndOrderFlowTest extends BaseTest {
                 { "Egy"},
         };
     }
-
 }
