@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite">
-    <test  name="D:/testing/testng/ECommerceTestNG">
+    <test  name="orderFlow">
         <classes>
             <class name="tests.endtoend.orderflow.EndToEndOrderFlowTest"/>
+        </classes>
+    </test>
+
+    <test name="errorValidations">
+        <classes>
+            <class name="ErrorValidationsTest"/>
         </classes>
     </test>
 </suite>
