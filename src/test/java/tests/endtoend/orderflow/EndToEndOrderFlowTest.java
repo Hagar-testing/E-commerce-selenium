@@ -41,12 +41,17 @@ public class EndToEndOrderFlowTest extends BaseTest {
     public void searchProductsAndAddToCart(String productNameToSearch) {
         filteredProducts = productsPage.getFilteredProductsByProductName(productNameToSearch);
         productsPage.addProductsToCart(filteredProducts);
+    }
+
+
+    @Test(dependsOnMethods = "searchProductsAndAddToCart")
+    public void verifyDisplayedToastMsgAfterAddingToCart(){
         String expectedMessage = "Product Added To Cart";
         String actualMessage = productsPage.getToastMessageText();
         Assert.assertEquals(actualMessage, expectedMessage, "Toast message does not match the expected value");
     }
 
-    @Test(dependsOnMethods = "searchProductsAndAddToCart")
+    @Test(dependsOnMethods = "verifyDisplayedToastMsgAfterAddingToCart")
     public void proceedToCartAndVerifyContents() {
         Header header = new Header(driver, waitUtils, javascriptExecutorUtils);
         List<String> filteredProductsNamesList = productsPage.getFilteredProductsNames(filteredProducts);
