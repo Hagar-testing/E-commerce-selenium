@@ -26,32 +26,36 @@ public class EndToEndOrderFlowTest extends BaseTest {
     }
 
     @Test(dataProvider = "loginData")
+    public void testOrderFlow(String userEmail, String userPassword, String productNameToSearch, String countryName){
+        verifyLogin(userEmail, userPassword);
+        navigateToProductsPage();
+        searchProductsAndAddToCart(productNameToSearch);
+        verifyDisplayedToastMsgAfterAddingToCart();
+        proceedToCartAndVerifyContents();
+        completeOrder(countryName);
+    }
     public void verifyLogin(String userEmail, String userPassword) {
         landingPage = new LandingPage(driver, waitUtils);
         landingPage.open();
         landingPage.login(userEmail, userPassword);
     }
 
-    @Test(dependsOnMethods = "verifyLogin")
     public void navigateToProductsPage() {
         productsPage = landingPage.transitionToProductsPage();
     }
 
-    @Test(dependsOnMethods = "navigateToProductsPage", dataProvider = "productNameData")
     public void searchProductsAndAddToCart(String productNameToSearch) {
         filteredProducts = productsPage.getFilteredProductsByProductName(productNameToSearch);
         productsPage.addProductsToCart(filteredProducts);
     }
 
 
-    @Test(dependsOnMethods = "searchProductsAndAddToCart")
     public void verifyDisplayedToastMsgAfterAddingToCart(){
         String expectedMessage = "Product Added To Cart";
         String actualMessage = productsPage.getToastMessageText();
         Assert.assertEquals(actualMessage, expectedMessage, "Toast message does not match the expected value");
     }
 
-    @Test(dependsOnMethods = "verifyDisplayedToastMsgAfterAddingToCart")
     public void proceedToCartAndVerifyContents() {
         Header header = new Header(driver, waitUtils, javascriptExecutorUtils);
         List<String> filteredProductsNamesList = productsPage.getFilteredProductsNames(filteredProducts);
@@ -60,32 +64,17 @@ public class EndToEndOrderFlowTest extends BaseTest {
         Assert.assertEquals(filteredProductsNamesList, productsInCart, "Cart contents do not match the expected products");
     }
 
-    @Test(dependsOnMethods = "proceedToCartAndVerifyContents", dataProvider = "countriesData")
     public void completeOrder(String countryName) {
         cartPage.clickOnCheckoutButton();
         CheckoutPage checkoutPage = cartPage.goToCheckoutPage();
         checkoutPage.selectCountry(countryName);
         checkoutPage.selectPlaceOrderButton();
     }
-
-    @DataProvider(name = "loginData")
+    @DataProvider(name = "testOrderFlow")
     public Object[][] loginData() {
         return new Object[][] {
-                { "hajer.ibr@gmail.com", "Hajer_95"},
+                { "hajer.ibr@gmail.com", "Hajer_95","zara coat 3","Egypt"},
         };
     }
 
-    @DataProvider(name = "productNameData")
-    public Object[][] productNameData() {
-        return new Object[][] {
-                { "zara coat 3"},
-        };
-    }
-
-    @DataProvider(name = "countriesData")
-    public Object[][] countriesData() {
-        return new Object[][] {
-                { "Egy"},
-        };
-    }
 }
