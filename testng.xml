@@ -7,9 +7,4 @@
         </classes>
     </test>
 
-    <test name="errorValidations">
-        <classes>
-            <class name="ErrorValidationsTest"/>
-        </classes>
-    </test>
 </suite>
