@@ -1,6 +1,7 @@
 package tests.endtoend.orderflow;
 
 import base.BaseTest;
+import data.reader.DataReader;
 import org.hager.pages.*;
 import org.hager.utils.webdriver.JavascriptExecutorUtils;
 import org.hager.utils.webdriver.WaitUtils;
@@ -9,6 +10,9 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 public class EndToEndOrderFlowTest extends BaseTest {
@@ -18,6 +22,8 @@ public class EndToEndOrderFlowTest extends BaseTest {
     private LandingPage landingPage;
     private CartPage cartPage;
     private List<WebElement> filteredProducts;
+    DataReader reader = new DataReader();
+    private static final String DATA_FILE_PATH = "OrderFlowData.json";
 
     @BeforeMethod
     public void setUp() {
@@ -26,13 +32,13 @@ public class EndToEndOrderFlowTest extends BaseTest {
     }
 
     @Test(dataProvider = "loginData")
-    public void testOrderFlow(String userEmail, String userPassword, String productNameToSearch, String countryName){
-        verifyLogin(userEmail, userPassword);
+    public void testOrderFlow(HashMap<String, String> data ){
+        verifyLogin(data.get("userEmail"), data.get("userPassword"));
         navigateToProductsPage();
-        searchProductsAndAddToCart(productNameToSearch);
+        searchProductsAndAddToCart(data.get("productNameToSearch"));
         verifyDisplayedToastMsgAfterAddingToCart();
         proceedToCartAndVerifyContents();
-        completeOrder(countryName);
+        completeOrder(data.get("countryName"));
     }
     public void verifyLogin(String userEmail, String userPassword) {
         landingPage = new LandingPage(driver, waitUtils);
@@ -70,10 +76,11 @@ public class EndToEndOrderFlowTest extends BaseTest {
         checkoutPage.selectCountry(countryName);
         checkoutPage.selectPlaceOrderButton();
     }
-    @DataProvider(name = "testOrderFlow")
-    public Object[][] loginData() {
+    @DataProvider(name = "loginData")
+    public Object[][] loginData() throws IOException {
+        List<HashMap<String, String>> map = reader.convertJsonDataToMap(DATA_FILE_PATH);
         return new Object[][] {
-                { "hajer.ibr@gmail.com", "Hajer_95","zara coat 3","Egypt"},
+                {map.get(0)}
         };
     }
 
