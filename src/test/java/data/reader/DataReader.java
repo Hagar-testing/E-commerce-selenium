@@ -10,9 +10,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 
+import static org.hager.utils.Constants.projectPath;
+
 public class DataReader {
 
-    static String projectPath = System.getProperty("user.dir");
     private static final String DATA_FILE_PATH = "//src//test//java//data//files//";
 
     public List<HashMap<String, String>> convertJsonDataToMap(String fileName) throws IOException {

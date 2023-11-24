@@ -10,10 +10,10 @@ import java.util.Properties;
 
 import static org.hager.config.ConfigConstants.BASE_URL;
 import static org.hager.config.ConfigConstants.BROWSER;
+import static org.hager.utils.Constants.projectPath;
 
 public class ConfigurationManager {
     private static final Properties properties;
-    static String projectPath = System.getProperty("user.dir");
     private static final String CONFIG_FILE_PATH = "//src//main//resources//StgEnvironment.properties";
     private static final Logger logger = LoggerFactory.getLogger(ConfigurationManager.class);
 

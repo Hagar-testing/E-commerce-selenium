@@ -58,5 +58,21 @@
             <version>2.16.0</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>5.1.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.itest/itest -->
+        <dependency>
+            <groupId>org.itest</groupId>
+            <artifactId>itest</artifactId>
+            <version>1.5.0</version>
+            <type>pom</type>
+        </dependency>
+
+
     </dependencies>
 </project>
