@@ -1,6 +1,6 @@
 package tests.endtoend.orderflow;
 
-import base.BaseTest;
+import utils.base.BaseTest;
 import data.reader.DataReader;
 import org.hager.pages.*;
 import org.hager.utils.webdriver.JavascriptExecutorUtils;
@@ -10,10 +10,10 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+
 
 public class EndToEndOrderFlowTest extends BaseTest {
     private WaitUtils waitUtils;
@@ -76,6 +76,7 @@ public class EndToEndOrderFlowTest extends BaseTest {
         checkoutPage.selectCountry(countryName);
         checkoutPage.selectPlaceOrderButton();
     }
+
     @DataProvider(name = "loginData")
     public Object[][] loginData() throws IOException {
         List<HashMap<String, String>> map = reader.convertJsonDataToMap(DATA_FILE_PATH);
