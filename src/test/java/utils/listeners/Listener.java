@@ -20,32 +20,35 @@ import static org.hager.utils.reports.ExtentReporter.getReportObject;
 public class Listener implements ITestListener {
 
     ExtentReports reports = getReportObject();
-    ExtentTest test;
+    ExtentTest extentTest;
 
+    ThreadLocal<ExtentTest> threadLocal = new ThreadLocal<>();
     WebDriver driver;
 
     @Override
     public void onTestStart(ITestResult result) {
-        test = reports.createTest(result.getMethod().getMethodName());
+        extentTest = reports.createTest(result.getMethod().getMethodName());
+        threadLocal.set(extentTest);
     }
 
     @Override
     public void onTestSuccess(ITestResult result) {
-        test.log(Status.PASS, "Test Passed");
+        extentTest.log(Status.PASS, "Test Passed");
     }
 
     @Override
     public void onTestFailure(ITestResult result) {
-        test.fail(result.getThrowable());
+        threadLocal.get().fail(result.getThrowable());
         String screenshotPath;
         try {
             driver = (WebDriver) result.getTestClass().getRealClass().getField("driver").get(result.getInstance());
             screenshotPath = takeScreenshot(result.getMethod().getMethodName());
+            threadLocal.get().addScreenCaptureFromPath(screenshotPath,result.getMethod().getMethodName());
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        test.addScreenCaptureFromPath(screenshotPath);
     }
 
     @Override
