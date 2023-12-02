@@ -1,5 +1,6 @@
 package tests.endtoend.orderflow;
 
+import org.testng.annotations.Listeners;
 import utils.base.BaseTest;
 import data.reader.DataReader;
 import org.hager.pages.*;
@@ -10,10 +11,11 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import utils.listeners.RetryAnalyzer;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-
 
 public class EndToEndOrderFlowTest extends BaseTest {
     private WaitUtils waitUtils;
@@ -31,7 +33,7 @@ public class EndToEndOrderFlowTest extends BaseTest {
         javascriptExecutorUtils = new JavascriptExecutorUtils(driver);
     }
 
-    @Test(dataProvider = "loginData")
+    @Test(dataProvider = "loginData", retryAnalyzer = RetryAnalyzer.class)
     public void testOrderFlow(HashMap<String, String> data ){
         verifyLogin(data.get("userEmail"), data.get("userPassword"));
         navigateToProductsPage();
