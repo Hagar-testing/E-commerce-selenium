@@ -35,10 +35,12 @@ public class ConfigurationManager {
     }
 
     public static String getBrowserName() {
-        return properties.getProperty(BROWSER);
+        String browserFromSys = System.getProperty(BROWSER);
+        return browserFromSys!= null ? browserFromSys : properties.getProperty(BROWSER);
     }
     public static String getBaseUrl() {
-        return properties.getProperty(BASE_URL);
+        String urlFromSys = System.getProperty(BASE_URL);
+        return urlFromSys != null ? urlFromSys : properties.getProperty(BASE_URL);
     }
 }
 
