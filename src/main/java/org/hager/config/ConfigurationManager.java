@@ -8,8 +8,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Properties;
 
-import static org.hager.config.ConfigConstants.BASE_URL;
-import static org.hager.config.ConfigConstants.BROWSER;
+import static org.hager.config.ConfigConstants.*;
 import static org.hager.utils.Constants.projectPath;
 
 public class ConfigurationManager {

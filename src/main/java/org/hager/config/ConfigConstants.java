@@ -7,5 +7,6 @@ public class ConfigConstants {
     public static final String EDGE = "edge";
     public static final String BROWSER = "browser";
     public static final String BASE_URL = "base_url";
+    public static final String HEADLESS = "headless";
 
 }
