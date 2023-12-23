@@ -8,6 +8,7 @@ public class JavascriptExecutorUtils {
 
     private final JavascriptExecutor jsExecutor;
 
+
     public JavascriptExecutorUtils(WebDriver driver) {
         this.jsExecutor = (JavascriptExecutor) driver;
     }

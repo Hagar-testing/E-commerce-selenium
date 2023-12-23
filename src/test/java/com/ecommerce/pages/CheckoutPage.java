@@ -1,18 +1,12 @@
-package org.hager.pages;
+package com.ecommerce.pages;
 
-import org.hager.utils.webdriver.JavascriptExecutorUtils;
-import org.hager.utils.webdriver.WaitUtils;
+import com.ecommerce.base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class CheckoutPage {
-
-    private final WaitUtils waitUtils;
-
-    private final JavascriptExecutorUtils javascriptExecutorUtils;
+public class CheckoutPage extends BasePage {
 
     @FindBy(css = "input[placeholder='Select Country']")
     WebElement selectCountryElement;
@@ -24,10 +18,8 @@ public class CheckoutPage {
     WebElement dropdownListLocator;
     By resultLocator = By.cssSelector("button");
 
-    public CheckoutPage(WebDriver driver,WaitUtils waitUtils, JavascriptExecutorUtils javascriptExecutorUtils) {
-        this.waitUtils = waitUtils;
-        this.javascriptExecutorUtils = javascriptExecutorUtils;
-        PageFactory.initElements(driver,this);
+    public CheckoutPage(WebDriver driver) {
+        super(driver);
     }
 
 

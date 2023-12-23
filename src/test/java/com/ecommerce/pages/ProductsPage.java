@@ -1,23 +1,22 @@
-package org.hager.pages;
+package com.ecommerce.pages;
 
-import org.hager.utils.webdriver.WaitUtils;
+import com.ecommerce.base.BasePage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 import java.util.stream.Stream;
 
-public class ProductsPage {
+public class ProductsPage extends BasePage {
 
-    private final WaitUtils waitUtils;
 
-    public ProductsPage(WebDriver driver,WaitUtils waitUtils) {
-        this.waitUtils = waitUtils;
-        PageFactory.initElements(driver,this);
+    public ProductsPage(WebDriver driver) {
+        super(driver);
     }
+
 
     @FindBy(xpath = "//div[@class='card']//h5")
     List<WebElement> products2;
@@ -52,6 +51,7 @@ public class ProductsPage {
         WebElement toastMessageElement = waitUtils.waitForPresenceOfElement(toastLocator);
         return toastMessageElement.getText();
     }
+
 
 
 }
