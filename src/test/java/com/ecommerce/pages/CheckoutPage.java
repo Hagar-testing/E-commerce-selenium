@@ -1,10 +1,10 @@
 package com.ecommerce.pages;
 
 import com.ecommerce.base.BasePage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
+
+import static java.lang.Thread.sleep;
 
 public class CheckoutPage extends BasePage {
 
@@ -17,6 +17,10 @@ public class CheckoutPage extends BasePage {
     @FindBy(css = "section[class='ta-results list-group ng-star-inserted']")
     WebElement dropdownListLocator;
 
+
+    @FindBy(className = "fa-search")
+    WebElement searchResults;
+
     By resultLocator = By.cssSelector("button");
 
     public CheckoutPage(WebDriver driver) {
@@ -25,15 +29,22 @@ public class CheckoutPage extends BasePage {
 
 
 
-    public CheckoutPage selectCountry(String country){
-        selectCountryElement.sendKeys(country);
-        WebElement results = waitUtils.waitForVisibilityOfElement(dropdownListLocator);
-        results.findElement(resultLocator).click();
+    public CheckoutPage selectCountry(String country)  {
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+
+        jsExecutor.executeScript("arguments[0].value = arguments[1];", selectCountryElement, country);
+
+        selectCountryElement.sendKeys(Keys.BACK_SPACE);
+
+        waitUtils.waitForVisibilityOfElement(searchResults);
+        searchResults.click();
         return this;
     }
 
-    public void clickPlaceOrderButton(){
+ 
+    public ThankYouPage clickPlaceOrderButton(){
         javascriptExecutorUtils.executeJavaScriptClick(placeOrderBtn);
+        return new ThankYouPage(driver);
     }
 
 

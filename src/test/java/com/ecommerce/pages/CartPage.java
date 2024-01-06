@@ -23,13 +23,12 @@ public class CartPage extends BasePage {
         return productsInCart.stream().map(WebElement::getText).toList();
     }
 
-    public void clickOnCheckoutButton() {
+    public CheckoutPage clickOnCheckoutButton() {
         javascriptExecutorUtils.executeJavaScriptClick(checkoutBtn);
-    }
-
-    public CheckoutPage goToCheckoutPage() {
         return new CheckoutPage(driver);
     }
+
+
 
     public Boolean isCartContainsProducts(){
         List<WebElement> productsInCart = driver.findElements(By.xpath("//div[@class=\"infoWrap\"]//h3"));
