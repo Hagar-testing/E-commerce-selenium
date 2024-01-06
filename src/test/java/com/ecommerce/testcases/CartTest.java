@@ -10,7 +10,7 @@ import static com.ecommerce.utils.ConfigUtils.getPassword;
 public class CartTest extends BaseTest {
 
     @Test
-    public void checkout() {
+    public void CheckIfCartScreenHasProductAfterClickOnAddToCart() {
         Boolean cartHasProducts = new LandingPage(getDriver())
                 .load()
                 .login(getEmail(), getPassword())
