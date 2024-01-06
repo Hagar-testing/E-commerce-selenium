@@ -5,8 +5,10 @@ import com.ecommerce.factory.DriverFactory;
 import com.ecommerce.utils.CookieUtils;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
+import io.restassured.RestAssured;
 import io.restassured.http.Cookie;
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -47,12 +49,12 @@ public class BaseTest {
     }
 
     @Step
-    public void injectCookiesToBrowser(List<Cookie> restAssuredCookies){
+    public void injectCookiesToBrowser(String authToken){
 
-        List<org.openqa.selenium.Cookie> seleniumCookies = CookieUtils.convertRestAssuredCookiesToSeleniumCookies(restAssuredCookies);
-        for (org.openqa.selenium.Cookie seleniumCookie : seleniumCookies){
-            getDriver().manage().addCookie(seleniumCookie);
-        }
+        RestAssured.filters((requestSpec, responseSpec, ctx) -> {
+            requestSpec.header("Authorization", "Bearer " + authToken);
+            return ctx.next(requestSpec, responseSpec);
+        });
     }
 
     public void takeScreenshot(File destFile){

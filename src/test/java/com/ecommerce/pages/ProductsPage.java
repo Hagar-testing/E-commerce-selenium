@@ -1,18 +1,12 @@
 package com.ecommerce.pages;
 
 import com.ecommerce.base.BasePage;
-import com.ecommerce.utils.ConfigUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
-
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
-
-import static com.ecommerce.constants.UrlPathConstants.DASHBOARD_PATH;
 
 public class ProductsPage extends BasePage {
 
@@ -27,19 +21,18 @@ public class ProductsPage extends BasePage {
     @FindBy(tagName = "ngx-spinner")
     WebElement spinnerLocator;
 
-    @FindBy(css = "#res")
+    @FindBy(id = "res")
     WebElement productsCountTextElement;
+
+    @FindBy(xpath = "//input[@placeholder='search']")
+    WebElement searchInput;
+
     By toastLocator = By.id("toast-container");
 
 
-    public ProductsPage load(){
-        driver.get(ConfigUtils.getBaseUrl() + DASHBOARD_PATH);
-        return this;
-    }
-
     public List<WebElement> getFilteredProductsByProductName(String productName){
         Stream<WebElement> filteredProducts = productsList.stream().filter(
-                a -> a.getText().equalsIgnoreCase(productName)
+                a -> a.getText().contains(productName)
         );
         return filteredProducts.toList();
     }
@@ -63,20 +56,54 @@ public class ProductsPage extends BasePage {
         return toastMessageElement.getText();
     }
 
-    public void getAllProductsCount(){
+
+
+    public int getAllProductsCount() {
         String text = productsCountTextElement.getText();
+        Matcher matcher = Pattern.compile("\\d+").matcher(text);
 
-        Pattern pattern = Pattern.compile("\\d+");
-        Matcher matcher = pattern.matcher(text);
+        return matcher.find() ? Integer.parseInt(matcher.group()) : 0;
 
-        if (matcher.find()) {
-            int count = Integer.parseInt(matcher.group());
-            System.out.println("The count is: " + count);
-        } else {
-            System.out.println("Count not found in the text.");
-        }
     }
 
+    public int getProductsListSize(){
+        return productsList.stream().toList().size();
+    }
 
+    public WebElement getFirstProductFromProductsList(){
+        return getProductsListSize() > 0 ? productsList.get(0) : null;
+    }
+
+    public ProductsPage addProductToList(WebElement product) {
+        product.findElement(By.xpath(".//following-sibling::button[contains(., 'Cart')]")).click();
+        return this;
+    }
+
+    public ProductsPage searchFor(String searchText) throws InterruptedException {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        // waitUtils.waitForElementToBeClickable(By.xpath("(//input[@placeholder='search'])[1]"));
+        js.executeScript("arguments[0].value = arguments[1];", searchInput, "your search query");
+
+        searchInput.sendKeys(searchText);
+        // Simulate pressing the "Enter" key
+        //searchInput.sendKeys(Keys.ENTER);
+
+        return this;
+    }
+
+    public Boolean checkIfAllProductsContains(String searchString){
+        return productsList.size() < 1 || productsList
+                .stream()
+                .map(WebElement::getText)
+                .anyMatch(text -> text.toLowerCase().contains(searchString));
+
+    }
+
+    public Header addFirstProductToCart(){
+        addProductToList(getFirstProductFromProductsList());
+        return new Header(driver);
+
+    }
 
 }

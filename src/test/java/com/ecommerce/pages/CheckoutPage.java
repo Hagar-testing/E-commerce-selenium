@@ -16,6 +16,7 @@ public class CheckoutPage extends BasePage {
 
     @FindBy(css = "section[class='ta-results list-group ng-star-inserted']")
     WebElement dropdownListLocator;
+
     By resultLocator = By.cssSelector("button");
 
     public CheckoutPage(WebDriver driver) {
@@ -24,13 +25,16 @@ public class CheckoutPage extends BasePage {
 
 
 
-    public void selectCountry(String country){
+    public CheckoutPage selectCountry(String country){
         selectCountryElement.sendKeys(country);
         WebElement results = waitUtils.waitForVisibilityOfElement(dropdownListLocator);
         results.findElement(resultLocator).click();
+        return this;
     }
 
-    public void selectPlaceOrderButton(){
+    public void clickPlaceOrderButton(){
         javascriptExecutorUtils.executeJavaScriptClick(placeOrderBtn);
     }
+
+
 }

@@ -30,4 +30,9 @@ public class CartPage extends BasePage {
     public CheckoutPage goToCheckoutPage() {
         return new CheckoutPage(driver);
     }
+
+    public Boolean isCartContainsProducts(){
+        List<WebElement> productsInCart = driver.findElements(By.xpath("//div[@class=\"infoWrap\"]//h3"));
+        return productsInCart.size() > 0;
+    }
 }

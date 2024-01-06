@@ -44,6 +44,5 @@ public class LoginAPI {
         accessToken = response.path("token");
         userId = response.path("userId");
 
-
     }
 }
