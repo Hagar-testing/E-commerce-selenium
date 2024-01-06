@@ -19,8 +19,6 @@ public class ProductsPage extends BasePage {
     @FindBy(xpath = "//div[@class='card']//h5")
     List<WebElement> productsList;
 
-    @FindBy(tagName = "ngx-spinner")
-    WebElement spinnerLocator;
 
     @FindBy(id = "res")
     WebElement productsCountTextElement;
@@ -31,25 +29,6 @@ public class ProductsPage extends BasePage {
     By toastLocator = By.id("toast-container");
 
 
-    public List<WebElement> getFilteredProductsByProductName(String productName) {
-        Stream<WebElement> filteredProducts = productsList.stream().filter(
-                a -> a.getText().contains(productName)
-        );
-        return filteredProducts.toList();
-    }
-
-    public void addProductsToCart(List<WebElement> filteredProductsList) {
-        filteredProductsList.forEach(
-                a -> a.findElement(By.xpath("//following-sibling::button[contains(., 'Cart')]")).click()
-        );
-        waitUtils.waitForVisibilityOfElement(spinnerLocator);
-        waitUtils.waitForInvisibilityOfElement(spinnerLocator);
-
-    }
-
-    public List<String> getFilteredProductsNames(List<WebElement> filteredProductsList) {
-        return filteredProductsList.stream().map(WebElement::getText).toList();
-    }
 
 
     public String getToastMessageText() {
@@ -79,14 +58,6 @@ public class ProductsPage extends BasePage {
         return this;
     }
 
-
-    public Boolean checkIfAllProductsContains(String searchString) {
-        return productsList.size() < 1 || productsList
-                .stream()
-                .map(WebElement::getText)
-                .anyMatch(text -> text.toLowerCase().contains(searchString));
-
-    }
 
     public Header addFirstProductToCart() {
         addProductToList(getFirstProductFromProductsList());

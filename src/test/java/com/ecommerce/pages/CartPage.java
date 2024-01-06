@@ -18,10 +18,6 @@ public class CartPage extends BasePage {
     @FindBy(xpath = "//button[text()= 'Checkout']")
     WebElement checkoutBtn;
 
-    public List<String> getProductsListInCart() {
-        List<WebElement> productsInCart = driver.findElements(By.xpath("//div[@class=\"infoWrap\"]//h3"));
-        return productsInCart.stream().map(WebElement::getText).toList();
-    }
 
     public CheckoutPage clickOnCheckoutButton() {
         javascriptExecutorUtils.executeJavaScriptClick(checkoutBtn);
