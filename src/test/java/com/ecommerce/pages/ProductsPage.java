@@ -3,6 +3,7 @@ package com.ecommerce.pages;
 import com.ecommerce.base.BasePage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,14 +31,14 @@ public class ProductsPage extends BasePage {
     By toastLocator = By.id("toast-container");
 
 
-    public List<WebElement> getFilteredProductsByProductName(String productName){
+    public List<WebElement> getFilteredProductsByProductName(String productName) {
         Stream<WebElement> filteredProducts = productsList.stream().filter(
                 a -> a.getText().contains(productName)
         );
         return filteredProducts.toList();
     }
 
-    public void addProductsToCart(List<WebElement> filteredProductsList){
+    public void addProductsToCart(List<WebElement> filteredProductsList) {
         filteredProductsList.forEach(
                 a -> a.findElement(By.xpath("//following-sibling::button[contains(., 'Cart')]")).click()
         );
@@ -46,7 +47,7 @@ public class ProductsPage extends BasePage {
 
     }
 
-    public List<String> getFilteredProductsNames(List<WebElement> filteredProductsList){
+    public List<String> getFilteredProductsNames(List<WebElement> filteredProductsList) {
         return filteredProductsList.stream().map(WebElement::getText).toList();
     }
 
@@ -57,7 +58,6 @@ public class ProductsPage extends BasePage {
     }
 
 
-
     public int getAllProductsCount() {
         String text = productsCountTextElement.getText();
         Matcher matcher = Pattern.compile("\\d+").matcher(text);
@@ -66,11 +66,11 @@ public class ProductsPage extends BasePage {
 
     }
 
-    public int getProductsListSize(){
+    public int getProductsListSize() {
         return productsList.stream().toList().size();
     }
 
-    public WebElement getFirstProductFromProductsList(){
+    public WebElement getFirstProductFromProductsList() {
         return getProductsListSize() > 0 ? productsList.get(0) : null;
     }
 
@@ -79,20 +79,8 @@ public class ProductsPage extends BasePage {
         return this;
     }
 
-    public ProductsPage searchFor(String searchText) throws InterruptedException {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
 
-        // waitUtils.waitForElementToBeClickable(By.xpath("(//input[@placeholder='search'])[1]"));
-        js.executeScript("arguments[0].value = arguments[1];", searchInput, "your search query");
-
-        searchInput.sendKeys(searchText);
-        // Simulate pressing the "Enter" key
-        //searchInput.sendKeys(Keys.ENTER);
-
-        return this;
-    }
-
-    public Boolean checkIfAllProductsContains(String searchString){
+    public Boolean checkIfAllProductsContains(String searchString) {
         return productsList.size() < 1 || productsList
                 .stream()
                 .map(WebElement::getText)
@@ -100,7 +88,7 @@ public class ProductsPage extends BasePage {
 
     }
 
-    public Header addFirstProductToCart(){
+    public Header addFirstProductToCart() {
         addProductToList(getFirstProductFromProductsList());
         return new Header(driver);
 
