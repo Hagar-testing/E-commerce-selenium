@@ -30,10 +30,8 @@ public class CheckoutPage extends BasePage {
 
 
     public CheckoutPage selectCountry(String country)  {
-        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 
-        jsExecutor.executeScript("arguments[0].value = arguments[1];", selectCountryElement, country);
-
+        javascriptExecutorUtils.sendInput(selectCountryElement,country);
         selectCountryElement.sendKeys(Keys.BACK_SPACE);
 
         waitUtils.waitForVisibilityOfElement(searchResults);
