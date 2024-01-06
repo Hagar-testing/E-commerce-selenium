@@ -2,18 +2,11 @@ package com.ecommerce.testcases;
 
 import com.ecommerce.base.BaseTest;
 import com.ecommerce.pages.*;
-import com.ecommerce.utils.listeners.RetryAnalyzer;
 import com.ecommerce.data.reader.DataReader;
-import org.hager.utils.webdriver.JavascriptExecutorUtils;
-import org.hager.utils.webdriver.WaitUtils;
+import com.ecommerce.utils.JavascriptExecutorUtils;
+import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
 
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 public class EndToEndOrderFlowTest extends BaseTest {

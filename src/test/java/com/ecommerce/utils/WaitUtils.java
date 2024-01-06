@@ -1,4 +1,4 @@
-package org.hager.utils.webdriver;
+package com.ecommerce.utils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

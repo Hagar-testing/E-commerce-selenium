@@ -1,7 +1,7 @@
 package com.ecommerce.base;
 
-import org.hager.utils.webdriver.JavascriptExecutorUtils;
-import org.hager.utils.webdriver.WaitUtils;
+import com.ecommerce.utils.JavascriptExecutorUtils;
+import com.ecommerce.utils.WaitUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 

@@ -1,4 +1,4 @@
-package org.hager.utils.webdriver;
+package com.ecommerce.utils;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -15,6 +15,11 @@ public class JavascriptExecutorUtils {
 
     public void executeJavaScriptClick(WebElement element) {
         jsExecutor.executeScript("arguments[0].click();", element);
+    }
+
+    public void sendInput(WebElement element, String text){
+        jsExecutor.executeScript("arguments[0].value = arguments[1];", element, text);
+
     }
 
 }
