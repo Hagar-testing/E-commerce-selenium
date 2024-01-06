@@ -1,4 +1,4 @@
-package com.ecommerce.utils.listeners;
+package com.ecommerce.listeners;
 
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
