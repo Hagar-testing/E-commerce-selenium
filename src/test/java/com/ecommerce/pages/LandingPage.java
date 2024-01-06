@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import static com.ecommerce.constants.UrlPathConstants.CLIENT_PATH;
+
 public class LandingPage extends BasePage {
 
     @FindBy(id = "userEmail")
@@ -28,7 +30,7 @@ public class LandingPage extends BasePage {
         return new ProductsPage(driver);
     }
     public LandingPage load(){
-        driver.get(ConfigUtils.getBaseUrl() + "client/");
+        driver.get(ConfigUtils.getBaseUrl() + CLIENT_PATH);
         return this;
     }
 
