@@ -1,21 +1,24 @@
 package com.ecommerce.pages;
 
 import com.ecommerce.base.BasePage;
+import com.ecommerce.locators.CheckoutPageLocators;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
+
+import static com.ecommerce.locators.CheckoutPageLocators.*;
 
 
 public class CheckoutPage extends BasePage {
 
-    @FindBy(css = "input[placeholder='Select Country']")
+    @FindBy(css = SELECT_COUNTRY_INPUT_CSS)
     WebElement selectCountryElement;
 
-    @FindBy(css = "a[class='btnn action__submit ng-star-inserted']")
+    @FindBy(css =PLACE_ORDER_BUTTON_CSS)
     WebElement placeOrderBtn;
 
-
-    @FindBy(className = "fa-search")
+    @FindBy(className = SEARCH_RESULTS_CLASS_NAME)
     WebElement searchResults;
+
 
 
     public CheckoutPage(WebDriver driver) {

@@ -3,11 +3,10 @@ package com.ecommerce.pages;
 import com.ecommerce.base.BasePage;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
-
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
+import static com.ecommerce.locators.ProductsLocators.*;
 
 public class ProductsPage extends BasePage {
 
@@ -16,15 +15,14 @@ public class ProductsPage extends BasePage {
         super(driver);
     }
 
-    @FindBy(xpath = "//div[@class='card']//h5")
+    @FindBy(xpath = PRODUCTS_LIST_XPATH)
     List<WebElement> productsList;
 
-
-    @FindBy(id = "res")
+    @FindBy(id = PRODUCTS_COUNT_TEXT_ELEMENT_ID)
     WebElement productsCountTextElement;
 
+    By toastLocator = By.id(TOAST_CONTAINER_ID);
 
-    By toastLocator = By.id("toast-container");
 
 
     public String getToastMessageText() {
@@ -50,7 +48,7 @@ public class ProductsPage extends BasePage {
     }
 
     public ProductsPage addProductToList(WebElement product) {
-        product.findElement(By.xpath(".//following-sibling::button[contains(., 'Cart')]")).click();
+        product.findElement(By.xpath(ADD_TO_CART_BUTTON_XPATH)).click();
         return this;
     }
 

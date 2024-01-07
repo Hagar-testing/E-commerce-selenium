@@ -8,6 +8,9 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
+import static com.ecommerce.locators.CartPageLocators.CHECKOUT_BUTTON_XPATH;
+import static com.ecommerce.locators.CartPageLocators.PRODUCT_TITLE_XPATH;
+
 public class CartPage extends BasePage {
 
 
@@ -15,7 +18,7 @@ public class CartPage extends BasePage {
         super(driver);
     }
 
-    @FindBy(xpath = "//button[text()= 'Checkout']")
+    @FindBy(xpath = CHECKOUT_BUTTON_XPATH)
     WebElement checkoutBtn;
 
 
@@ -27,7 +30,7 @@ public class CartPage extends BasePage {
 
 
     public Boolean isCartContainsProducts(){
-        List<WebElement> productsInCart = driver.findElements(By.xpath("//div[@class=\"infoWrap\"]//h3"));
+        List<WebElement> productsInCart = driver.findElements(By.xpath(PRODUCT_TITLE_XPATH));
         return productsInCart.size() > 0;
     }
 }

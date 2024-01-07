@@ -6,8 +6,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import static com.ecommerce.locators.HeaderLocators.PRODUCTS_COUNT_CART_XPATH;
+
 public class Header extends BasePage {
-    @FindBy(xpath = "//button[@routerlink='/dashboard/cart']/label")
+    @FindBy(xpath = PRODUCTS_COUNT_CART_XPATH)
     WebElement productsCountCart;
 
     public Header(WebDriver driver) {

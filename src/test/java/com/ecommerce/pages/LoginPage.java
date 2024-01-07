@@ -7,17 +7,22 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import static com.ecommerce.constants.UrlPathConstants.CLIENT_PATH;
+import static com.ecommerce.locators.LoginLocators.*;
 
 public class LoginPage extends BasePage {
 
-    @FindBy(id = "userEmail")
+    @FindBy(id = USER_EMAIL_ID)
     WebElement mail;
-    @FindBy(id = "userPassword")
+
+    @FindBy(id = USER_PASSWORD_ID)
     WebElement password;
-    @FindBy(id = "login")
+
+    @FindBy(id = LOGIN_BTN_ID)
     WebElement loginBtn;
-    @FindBy(xpath = "//div[@class='ng-tns-c4-0 toast-message ng-star-inserted']")
+
+    @FindBy(xpath = ERROR_MESSAGE_XPATH)
     WebElement errorMessage;
+
 
     public LoginPage(WebDriver driver) {
         super(driver);
