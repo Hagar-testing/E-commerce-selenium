@@ -21,7 +21,7 @@ public class Header extends BasePage {
     }
 
     public int getCartItemsCount() throws InterruptedException {
-        Thread.sleep(600);
+        Thread.sleep(1000);
         return Integer.parseInt(productsCountCart.getText());
     }
 
