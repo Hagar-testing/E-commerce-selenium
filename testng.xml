@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite">
-    <listeners>
-        <listener class-name="utils.listeners.Listener"/>
-    </listeners>
-    <test  name="orderFlow">
+
+    <test name="authentication">
         <classes>
-            <class name="tests.endtoend.orderflow.EndToEndOrderFlowTest"/>
+            <class name="com.ecommerce.testcases.LoginTest"/>
         </classes>
     </test>
+
+    <test name="products">
+        <classes>
+            <class name="com.ecommerce.testcases.ProductsTest"/>
+            <class name="com.ecommerce.testcases.CartTest"/>
+            <class name="com.ecommerce.testcases.CheckoutTest"/>
+        </classes>
+    </test>
+
 
 </suite>
