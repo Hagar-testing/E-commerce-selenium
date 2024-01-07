@@ -23,12 +23,8 @@ public class ProductsPage extends BasePage {
     @FindBy(id = "res")
     WebElement productsCountTextElement;
 
-    @FindBy(xpath = "//input[@placeholder='search']")
-    WebElement searchInput;
 
     By toastLocator = By.id("toast-container");
-
-
 
 
     public String getToastMessageText() {

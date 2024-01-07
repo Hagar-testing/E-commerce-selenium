@@ -48,14 +48,6 @@ public class BaseTest {
         getDriver().quit();
     }
 
-    @Step
-    public void injectCookiesToBrowser(String authToken){
-
-        RestAssured.filters((requestSpec, responseSpec, ctx) -> {
-            requestSpec.header("Authorization", "Bearer " + authToken);
-            return ctx.next(requestSpec, responseSpec);
-        });
-    }
 
     public void takeScreenshot(File destFile){
         File file = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);
