@@ -12,13 +12,12 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void login(){
-        String expectedMessage = "Login Successfully";
 
-        String isHomeTextIsDisplayed = new LoginPage(getDriver())
+        Boolean isProductsDisplayed = new LoginPage(getDriver())
                 .load()
                 .login(getEmail(), getPassword())
-                .getToastMessageText();
+                .isProductsListDisplayed();
 
-        Assert.assertEquals(isHomeTextIsDisplayed, expectedMessage);
+        Assert.assertTrue(isProductsDisplayed);
     }
 }

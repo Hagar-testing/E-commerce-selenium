@@ -61,4 +61,8 @@ public class ProductsPage extends BasePage {
 
     }
 
+    public Boolean isProductsListDisplayed(){
+        return  productsCountTextElement.isDisplayed();
+    }
+
 }
