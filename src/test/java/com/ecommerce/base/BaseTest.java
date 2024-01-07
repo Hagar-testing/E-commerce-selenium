@@ -2,13 +2,8 @@ package com.ecommerce.base;
 
 
 import com.ecommerce.factory.DriverFactory;
-import com.ecommerce.utils.CookieUtils;
 import io.qameta.allure.Allure;
-import io.qameta.allure.Step;
-import io.restassured.RestAssured;
-import io.restassured.http.Cookie;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -20,7 +15,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 public class BaseTest {
 
