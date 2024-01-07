@@ -15,8 +15,8 @@ public class CartTest extends BaseTest {
                 .load()
                 .login(getEmail(), getPassword())
                 .addFirstProductToCart()
-                .goToCartPage().
-                isCartContainsProducts();
+                .goToCartPage()
+                .isCartContainsProducts();
 
         Assert.assertTrue(cartHasProducts);
 
