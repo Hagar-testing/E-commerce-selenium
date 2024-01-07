@@ -1,7 +1,7 @@
 package com.ecommerce.testcases;
 
 import com.ecommerce.base.BaseTest;
-import com.ecommerce.pages.LandingPage;
+import com.ecommerce.pages.LoginPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -12,7 +12,7 @@ public class CheckoutTest extends BaseTest {
 
     @Test
     public void CheckIfCheckoutProcessWorksSuccessfully() {
-        Boolean message = new LandingPage(getDriver())
+        Boolean message = new LoginPage(getDriver())
                 .load()
                 .login(getEmail(), getPassword())
                 .addFirstProductToCart()

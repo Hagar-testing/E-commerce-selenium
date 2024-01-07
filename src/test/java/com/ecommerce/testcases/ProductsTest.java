@@ -1,8 +1,7 @@
 package com.ecommerce.testcases;
 
 import com.ecommerce.base.BaseTest;
-import com.ecommerce.pages.Header;
-import com.ecommerce.pages.LandingPage;
+import com.ecommerce.pages.LoginPage;
 import com.ecommerce.pages.ProductsPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -16,7 +15,7 @@ public class ProductsTest extends BaseTest {
     @Test
     public void testIfShownProductsTextEqualsToProductsListSize(){
 
-        ProductsPage productsPage = new LandingPage(getDriver()).load().login(getEmail(), getPassword());
+        ProductsPage productsPage = new LoginPage(getDriver()).load().login(getEmail(), getPassword());
 
         int productsListSize = productsPage.getProductsListSize();
         int count = productsPage.getAllProductsCount();
@@ -28,7 +27,7 @@ public class ProductsTest extends BaseTest {
 
     @Test
     public void testIfProductIsAddedSuccessfullyToCart() throws InterruptedException {
-        Integer cartItemsCount = new LandingPage(getDriver())
+        Integer cartItemsCount = new LoginPage(getDriver())
                 .load()
                 .login(getEmail(), getPassword())
                 .addFirstProductToCart()

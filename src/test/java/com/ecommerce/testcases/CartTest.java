@@ -1,7 +1,7 @@
 package com.ecommerce.testcases;
 
 import com.ecommerce.base.BaseTest;
-import com.ecommerce.pages.LandingPage;
+import com.ecommerce.pages.LoginPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import static com.ecommerce.utils.ConfigUtils.getEmail;
@@ -11,7 +11,7 @@ public class CartTest extends BaseTest {
 
     @Test
     public void CheckIfCartScreenHasProductAfterClickOnAddToCart() {
-        Boolean cartHasProducts = new LandingPage(getDriver())
+        Boolean cartHasProducts = new LoginPage(getDriver())
                 .load()
                 .login(getEmail(), getPassword())
                 .addFirstProductToCart()

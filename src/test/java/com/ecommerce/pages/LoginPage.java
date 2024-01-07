@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 
 import static com.ecommerce.constants.UrlPathConstants.CLIENT_PATH;
 
-public class LandingPage extends BasePage {
+public class LoginPage extends BasePage {
 
     @FindBy(id = "userEmail")
     WebElement mail;
@@ -19,7 +19,7 @@ public class LandingPage extends BasePage {
     @FindBy(xpath = "//div[@class='ng-tns-c4-0 toast-message ng-star-inserted']")
     WebElement errorMessage;
 
-    public LandingPage(WebDriver driver) {
+    public LoginPage(WebDriver driver) {
         super(driver);
     }
 
@@ -29,7 +29,7 @@ public class LandingPage extends BasePage {
         loginBtn.click();
         return new ProductsPage(driver);
     }
-    public LandingPage load(){
+    public LoginPage load(){
         driver.get(ConfigUtils.getBaseUrl() + CLIENT_PATH);
         return this;
     }
