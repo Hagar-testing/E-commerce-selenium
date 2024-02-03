@@ -8,11 +8,14 @@ import static com.ecommerce.constants.DataFilesPathConstants.CHECKOUT_DATA_FILE_
 
 public class TestDataProviders {
 
+    DataReader reader;
 
+    public TestDataProviders(){
+        reader = new DataReader();
+    }
 
     @DataProvider(name = "checkoutData")
     public Object[][] checkoutData() throws IOException {
-        DataReader reader = new DataReader();
         return reader.readAndProvideJsonData(CHECKOUT_DATA_FILE_PATH);
     }
 
