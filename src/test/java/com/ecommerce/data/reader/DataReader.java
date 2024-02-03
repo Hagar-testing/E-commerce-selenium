@@ -13,7 +13,7 @@ import java.util.List;
 
 public class DataReader {
     public static String projectPath = System.getProperty("user.dir");
-    private static final String DATA_FILE_PATH = "//src//test//java//data//files//";
+    private static final String DATA_FILE_PATH = "//src//test//java//com//ecommerce//data//files//";
 
     public List<HashMap<String, String>> convertJsonDataToMap(String fileName) throws IOException {
         String jsonContent = FileUtils.readFileToString(new File(projectPath + DATA_FILE_PATH + fileName), StandardCharsets.UTF_8);
