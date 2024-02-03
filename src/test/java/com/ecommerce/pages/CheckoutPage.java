@@ -20,7 +20,6 @@ public class CheckoutPage extends BasePage {
     WebElement searchResults;
 
 
-
     public CheckoutPage(WebDriver driver) {
         super(driver);
     }
@@ -31,9 +30,7 @@ public class CheckoutPage extends BasePage {
 
         javascriptExecutorUtils.sendInput(selectCountryElement,country);
         selectCountryElement.sendKeys(Keys.BACK_SPACE);
-
-        waitUtils.waitForVisibilityOfElement(searchResults);
-        searchResults.click();
+        javascriptExecutorUtils.executeJavaScriptClick(searchResults);
         return this;
     }
 
