@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import static com.ecommerce.locators.ProductsLocators.*;
+import static com.ecommerce.utils.RegexUtils.DIGITS_PATTERN;
 
 public class ProductsPage extends BasePage {
 
@@ -33,7 +34,7 @@ public class ProductsPage extends BasePage {
 
     public int getAllProductsCount() {
         String text = productsCountTextElement.getText();
-        Matcher matcher = Pattern.compile("\\d+").matcher(text);
+        Matcher matcher = Pattern.compile(DIGITS_PATTERN).matcher(text);
 
         return matcher.find() ? Integer.parseInt(matcher.group()) : 0;
 
