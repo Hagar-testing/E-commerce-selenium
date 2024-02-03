@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import static com.ecommerce.constants.DataFilesPathConstants.CHECKOUT_DATA_FILE_PATH;
+import static com.ecommerce.constants.JsonKeysConstants.COUNTRY_NAME;
 import static com.ecommerce.utils.ConfigUtils.getEmail;
 import static com.ecommerce.utils.ConfigUtils.getPassword;
 
@@ -25,15 +26,12 @@ public class CheckoutTest extends BaseTest {
                 .addFirstProductToCart()
                 .goToCartPage()
                 .clickOnCheckoutButton()
-                .selectCountry(data.get("countryName"))
+                .selectCountry(data.get(COUNTRY_NAME))
                 .clickPlaceOrderButton()
                 .isThankYouForPlacingOrderDisplayed();
 
         Assert.assertTrue(message);
     }
-
-
-
 
 }
 
