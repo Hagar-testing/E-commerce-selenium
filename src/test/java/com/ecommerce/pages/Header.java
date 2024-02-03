@@ -2,6 +2,7 @@ package com.ecommerce.pages;
 
 import com.ecommerce.base.BasePage;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -16,12 +17,12 @@ public class Header extends BasePage {
         super(driver);
     }
 
-
+    @Step
     public CartPage goToCartPage(){
         javascriptExecutorUtils.executeJavaScriptClick(productsCountCart);
         return new CartPage(driver);
     }
-
+    @Step
     public int getCartItemsCount() throws InterruptedException {
         Thread.sleep(1000);
         return Integer.parseInt(productsCountCart.getText());

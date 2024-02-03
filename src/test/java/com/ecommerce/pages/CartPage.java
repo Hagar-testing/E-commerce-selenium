@@ -1,6 +1,7 @@
 package com.ecommerce.pages;
 
 import com.ecommerce.base.BasePage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,14 +22,14 @@ public class CartPage extends BasePage {
     @FindBy(xpath = CHECKOUT_BUTTON_XPATH)
     WebElement checkoutBtn;
 
-
+    @Step
     public CheckoutPage clickOnCheckoutButton() {
         javascriptExecutorUtils.executeJavaScriptClick(checkoutBtn);
         return new CheckoutPage(driver);
     }
 
 
-
+    @Step
     public Boolean isCartContainsProducts(){
         List<WebElement> productsInCart = driver.findElements(By.xpath(PRODUCT_TITLE_XPATH));
         return productsInCart.size() > 0;

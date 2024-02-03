@@ -1,6 +1,7 @@
 package com.ecommerce.pages;
 
 import com.ecommerce.base.BasePage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,7 +16,7 @@ public class ThankYouPage extends BasePage {
     public ThankYouPage(WebDriver driver) {
         super(driver);
     }
-
+    @Step
     public Boolean isThankYouForPlacingOrderDisplayed(){
         return thankYouPage.isDisplayed();
     }

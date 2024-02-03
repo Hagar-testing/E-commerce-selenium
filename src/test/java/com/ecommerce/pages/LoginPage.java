@@ -2,6 +2,7 @@ package com.ecommerce.pages;
 
 import com.ecommerce.base.BasePage;
 import com.ecommerce.utils.ConfigUtils;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -34,11 +35,13 @@ public class LoginPage extends BasePage {
         loginBtn.click();
         return new ProductsPage(driver);
     }
+    @Step
     public LoginPage load(){
         driver.get(ConfigUtils.getBaseUrl() + CLIENT_PATH);
         return this;
     }
 
+    @Step
     public String getErrorMessage(){
         waitUtils.waitForVisibilityOfElement(errorMessage);
         return errorMessage.getText();

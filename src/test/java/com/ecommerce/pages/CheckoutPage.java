@@ -2,6 +2,7 @@ package com.ecommerce.pages;
 
 import com.ecommerce.base.BasePage;
 import com.ecommerce.locators.CheckoutPageLocators;
+import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 
@@ -25,7 +26,7 @@ public class CheckoutPage extends BasePage {
     }
 
 
-
+    @Step
     public CheckoutPage selectCountry(String country)  {
 
         javascriptExecutorUtils.sendInput(selectCountryElement,country);
@@ -34,7 +35,7 @@ public class CheckoutPage extends BasePage {
         return this;
     }
 
- 
+    @Step
     public ThankYouPage clickPlaceOrderButton(){
         javascriptExecutorUtils.executeJavaScriptClick(placeOrderBtn);
         return new ThankYouPage(driver);

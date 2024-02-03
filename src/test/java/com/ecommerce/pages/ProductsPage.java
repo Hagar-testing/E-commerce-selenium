@@ -1,6 +1,7 @@
 package com.ecommerce.pages;
 
 import com.ecommerce.base.BasePage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import java.util.List;
@@ -25,13 +26,13 @@ public class ProductsPage extends BasePage {
     By toastLocator = By.id(TOAST_CONTAINER_ID);
 
 
-
+    @Step
     public String getToastMessageText() {
         WebElement toastMessageElement = waitUtils.waitForPresenceOfElement(toastLocator);
         return toastMessageElement.getText();
     }
 
-
+    @Step
     public int getAllProductsCount() {
         String text = productsCountTextElement.getText();
         Matcher matcher = Pattern.compile(DIGITS_PATTERN).matcher(text);
@@ -39,27 +40,28 @@ public class ProductsPage extends BasePage {
         return matcher.find() ? Integer.parseInt(matcher.group()) : 0;
 
     }
-
+    @Step
     public int getProductsListSize() {
         return productsList.stream().toList().size();
     }
 
+    @Step
     public WebElement getFirstProductFromProductsList() {
         return getProductsListSize() > 0 ? productsList.get(0) : null;
     }
-
+    @Step
     public ProductsPage addProductToList(WebElement product) {
         product.findElement(By.xpath(ADD_TO_CART_BUTTON_XPATH)).click();
         return this;
     }
 
-
+    @Step
     public Header addFirstProductToCart() {
         addProductToList(getFirstProductFromProductsList());
         return new Header(driver);
 
     }
-
+    @Step
     public Boolean isProductsListDisplayed(){
         return  productsCountTextElement.isDisplayed();
     }
