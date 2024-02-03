@@ -2,6 +2,7 @@ package com.ecommerce.testcases;
 
 import com.ecommerce.base.BaseTest;
 import com.ecommerce.data.reader.DataReader;
+import com.ecommerce.data.reader.TestDataProviders;
 import com.ecommerce.pages.LoginPage;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -16,7 +17,7 @@ import static com.ecommerce.utils.ConfigUtils.getPassword;
 
 public class CheckoutTest extends BaseTest {
 
-    @Test(dataProvider = "checkoutData" )
+    @Test(dataProvider = "checkoutData", dataProviderClass = TestDataProviders.class)
     public void CheckIfCheckoutProcessWorksSuccessfully(HashMap<String, String> data ) {
         Boolean message = new LoginPage(getDriver())
                 .load()
@@ -32,12 +33,6 @@ public class CheckoutTest extends BaseTest {
     }
 
 
-
-    @DataProvider(name = "checkoutData")
-    public Object[][] checkoutData() throws IOException {
-        DataReader reader = new DataReader();
-        return reader.readAndProvideJsonData(CHECKOUT_DATA_FILE_PATH);
-    }
 
 
 }
