@@ -36,7 +36,7 @@ public class CheckoutTest extends BaseTest {
     @DataProvider(name = "checkoutData")
     public Object[][] checkoutData() throws IOException {
         DataReader reader = new DataReader();
-        return reader.provideDataFromJson(CHECKOUT_DATA_FILE_PATH);
+        return reader.readAndProvideJsonData(CHECKOUT_DATA_FILE_PATH);
     }
 
 
