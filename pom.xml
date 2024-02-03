@@ -13,7 +13,16 @@
         <maven.compiler.target>20</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <aspectj.version>1.9.20.1</aspectj.version>
-
+        <selenium.version>4.12.0</selenium.version>
+        <testng.version>7.8.0</testng.version>
+        <webdrivermanager.version>5.5.3</webdrivermanager.version>
+        <jackson.version>2.16.0</jackson.version>
+        <extentreports.version>5.1.1</extentreports.version>
+        <itest.version>1.5.0</itest.version>
+        <restassured.version>5.4.0</restassured.version>
+        <javafaker.version>1.0.2</javafaker.version>
+        <allure.version>2.25.0</allure.version>
+        <surefire.version>3.2.2</surefire.version>
     </properties>
 
     <build>
@@ -21,7 +30,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.1.2</version>
+                <version>${surefire.version}</version>
                 <configuration>
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
@@ -41,80 +50,81 @@
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+        <!-- Selenium -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.12.0</version>
+            <version>${selenium.version}</version>
         </dependency>
 
-
         <!-- https://mvnrepository.com/artifact/org.testng/testng -->
-        <!-- Test NG-->
+        <!-- TestNG -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>7.8.0</version>
+            <version>${testng.version}</version>
             <scope>test</scope>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+        <!-- Webdriver Manager -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>5.5.3</version>
+            <version>${webdrivermanager.version}</version>
         </dependency>
 
 
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <!-- Jackson Databind -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.16.0</version>
+            <version>${jackson.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
+        <!-- Extent Reports -->
         <dependency>
             <groupId>com.aventstack</groupId>
             <artifactId>extentreports</artifactId>
-            <version>5.1.1</version>
+            <version>${extentreports.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.itest/itest -->
+        <!-- iTest -->
         <dependency>
             <groupId>org.itest</groupId>
             <artifactId>itest</artifactId>
-            <version>1.5.0</version>
+            <version>${itest.version}</version>
             <type>pom</type>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+        <!-- RestAssured -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>5.4.0</version>
+            <version>${restassured.version}</version>
             <scope>test</scope>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.github.javafaker/javafaker -->
+        <!-- JavaFaker -->
         <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
-            <version>1.0.2</version>
+            <version>${javafaker.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
+        <!-- Allure TestNG -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
-            <version>2.25.0</version>
+            <version>${allure.version}</version>
         </dependency>
-
 
     </dependencies>
 
@@ -126,7 +136,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-surefire-plugin</artifactId>
-                        <version>3.2.2</version>
+                        <version>${surefire.version}</version>
                         <configuration>
                             <suiteXmlFiles>
                                 <suiteXmlFile>testng.xml</suiteXmlFile>
