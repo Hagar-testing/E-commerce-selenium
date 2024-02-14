@@ -23,7 +23,7 @@ public class CartPage extends BasePage {
 
     @Step
     public CheckoutPage clickOnCheckoutButton() {
-        new ElementInteraction(driver).javascriptClick(checkout_button);
+        elementInteraction.javascriptClick(checkout_button);
         return new CheckoutPage(driver);
     }
 

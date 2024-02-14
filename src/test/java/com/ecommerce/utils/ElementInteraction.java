@@ -1,6 +1,7 @@
 package com.ecommerce.utils;
 
 import com.ecommerce.enums.LocatorType;
+import com.ecommerce.enums.LocatorType.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -10,6 +11,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+
+import static com.ecommerce.enums.LocatorType.WITHOUT_WAIT;
 
 
 public class ElementInteraction {
@@ -27,7 +30,7 @@ public class ElementInteraction {
     }
 
     // Generic method to handle element visibility based on locator type
-    private WebElement locateElement(By locator, LocatorType type) {
+    public WebElement locateElement(By locator, LocatorType type) {
         switch (type) {
             case WITHOUT_WAIT -> {
                 return driver.findElement(locator);
@@ -43,6 +46,10 @@ public class ElementInteraction {
         }
     }
 
+    public WebElement locateElement(By locator){
+        return locateElement(locator, WITHOUT_WAIT);
+    }
+
     // Method to perform a simple click with element visibility wait
     public ElementInteraction simpleClick(By locator, LocatorType type) {
         WebElement element = locateElement(locator, type);
@@ -52,7 +59,7 @@ public class ElementInteraction {
 
     // Overloaded method with default value for LocatorType
     public ElementInteraction simpleClick(By locator) {
-        return simpleClick(locator, LocatorType.WITHOUT_WAIT);
+        return simpleClick(locator, WITHOUT_WAIT);
     }
 
     // Method to perform a click with hover and element visibility wait
@@ -72,7 +79,7 @@ public class ElementInteraction {
     }
 
     public ElementInteraction javascriptClick(By locator){
-        return javascriptClick(locator,LocatorType.WITHOUT_WAIT);
+        return javascriptClick(locator, WITHOUT_WAIT);
     }
 
     // Other methods like type, select, etc. can be added here
@@ -82,6 +89,16 @@ public class ElementInteraction {
         // Implement the full locating strategy here
     }
 
+    public ElementInteraction setInput(By locator, String text, LocatorType type){
+        locateElement(locator,type).sendKeys(text);
+        return this;
+    }
+
+    public ElementInteraction setInput(By locator, String text){
+        return setInput(locator,text, WITHOUT_WAIT);
+    }
+
+
     // Method to set input text using JavaScriptExecutor
     public ElementInteraction setInputWithJavaScriptExecutor(By locator, String text, LocatorType type) {
         javascriptExecutorUtils.sendInput(locateElement(locator,type), text);
@@ -89,7 +106,7 @@ public class ElementInteraction {
     }
 
     public ElementInteraction setInputWithJavaScriptExecutor(By locator, String text) {
-        return setInputWithJavaScriptExecutor(locator,text,LocatorType.WITHOUT_WAIT);
+        return setInputWithJavaScriptExecutor(locator,text,WITHOUT_WAIT);
     }
 
     // Method to simulate Backspace key press using sendKeys
@@ -99,6 +116,10 @@ public class ElementInteraction {
     }
 
     public ElementInteraction simulateBackspace(By locator) {
-        return simulateBackspace(locator,LocatorType.WITHOUT_WAIT);
+        return simulateBackspace(locator, WITHOUT_WAIT);
+    }
+
+    public ElementListInteraction withList() {
+        return new ElementListInteraction(driver);
     }
 }

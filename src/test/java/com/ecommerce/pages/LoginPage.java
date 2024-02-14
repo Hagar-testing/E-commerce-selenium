@@ -3,6 +3,7 @@ package com.ecommerce.pages;
 import com.ecommerce.base.BasePage;
 import com.ecommerce.utils.ConfigUtils;
 import io.qameta.allure.Step;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,17 +13,10 @@ import static com.ecommerce.locators.LoginLocators.*;
 
 public class LoginPage extends BasePage {
 
-    @FindBy(id = USER_EMAIL_ID)
-    WebElement mail;
-
-    @FindBy(id = USER_PASSWORD_ID)
-    WebElement password;
-
-    @FindBy(id = LOGIN_BTN_ID)
-    WebElement loginBtn;
-
-    @FindBy(xpath = ERROR_MESSAGE_XPATH)
-    WebElement errorMessage;
+    private final By mail_input = By.id(USER_EMAIL_ID);
+    private final By password_input = By.id(USER_PASSWORD_ID);
+    private final By login_button= By.id(LOGIN_BTN_ID);
+    private final By errorMessage_text = By.xpath(ERROR_MESSAGE_XPATH);
 
 
     public LoginPage(WebDriver driver) {
@@ -30,9 +24,11 @@ public class LoginPage extends BasePage {
     }
 
     public ProductsPage login(String email, String pass){
-        mail.sendKeys(email);
-        password.sendKeys(pass);
-        loginBtn.click();
+        elementInteraction
+                .setInput(mail_input, email)
+                .setInput(password_input, pass)
+                .simpleClick(login_button);
+
         return new ProductsPage(driver);
     }
     @Step
@@ -43,8 +39,7 @@ public class LoginPage extends BasePage {
 
     @Step
     public String getErrorMessage(){
-        waitUtils.waitForVisibilityOfElement(errorMessage);
-        return errorMessage.getText();
+        return elementInteraction.locateElement(errorMessage_text).getText();
     }
 
 }

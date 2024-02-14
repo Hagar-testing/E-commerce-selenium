@@ -20,18 +20,18 @@ public class CheckoutPage extends BasePage {
 
 
     @Step
-    public CheckoutPage selectCountry(String country)  {
+    public CheckoutPage selectCountry(String country) {
 
-        new ElementInteraction(driver)
-                .setInputWithJavaScriptExecutor(selectCountry_input,country)
+        elementInteraction
+                .setInputWithJavaScriptExecutor(selectCountry_input, country)
                 .simulateBackspace(selectCountry_input)
                 .javascriptClick(searchResults_input);
         return this;
     }
 
     @Step
-    public ThankYouPage clickPlaceOrderButton(){
-        new ElementInteraction(driver).javascriptClick(placeOrder_button);
+    public ThankYouPage clickPlaceOrderButton() {
+        elementInteraction.javascriptClick(placeOrder_button);
         return new ThankYouPage(driver);
     }
 
