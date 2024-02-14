@@ -1,25 +1,18 @@
 package com.ecommerce.pages;
 
 import com.ecommerce.base.BasePage;
-import com.ecommerce.locators.CheckoutPageLocators;
+import com.ecommerce.utils.ElementInteraction;
 import io.qameta.allure.Step;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.FindBy;
 
 import static com.ecommerce.locators.CheckoutPageLocators.*;
 
 
 public class CheckoutPage extends BasePage {
 
-    @FindBy(css = SELECT_COUNTRY_INPUT_CSS)
-    WebElement selectCountryElement;
-
-    @FindBy(css =PLACE_ORDER_BUTTON_CSS)
-    WebElement placeOrderBtn;
-
-    @FindBy(className = SEARCH_RESULTS_CLASS_NAME)
-    WebElement searchResults;
-
+    private final By selectCountry_input = By.cssSelector(SELECT_COUNTRY_INPUT_CSS);
+    private final By placeOrder_button = By.cssSelector(PLACE_ORDER_BUTTON_CSS);
+    private final By searchResults_input = By.className(SEARCH_RESULTS_CLASS_NAME);
 
     public CheckoutPage(WebDriver driver) {
         super(driver);
@@ -29,15 +22,16 @@ public class CheckoutPage extends BasePage {
     @Step
     public CheckoutPage selectCountry(String country)  {
 
-        javascriptExecutorUtils.sendInput(selectCountryElement,country);
-        selectCountryElement.sendKeys(Keys.BACK_SPACE);
-        javascriptExecutorUtils.executeJavaScriptClick(searchResults);
+        new ElementInteraction(driver)
+                .setInputWithJavaScriptExecutor(selectCountry_input,country)
+                .simulateBackspace(selectCountry_input)
+                .javascriptClick(searchResults_input);
         return this;
     }
 
     @Step
     public ThankYouPage clickPlaceOrderButton(){
-        javascriptExecutorUtils.executeJavaScriptClick(placeOrderBtn);
+        new ElementInteraction(driver).javascriptClick(placeOrder_button);
         return new ThankYouPage(driver);
     }
 
