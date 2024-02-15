@@ -1,5 +1,7 @@
 package com.ecommerce.factory;
 
+import com.ecommerce.enums.BrowserType;
+import com.ecommerce.enums.BrowserType.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,12 +10,18 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.time.Duration;
 import static com.ecommerce.constants.ConfigConstants.*;
+import static com.ecommerce.enums.BrowserType.CHROME;
+import static com.ecommerce.enums.BrowserType.FIREFOX;
+import static com.ecommerce.enums.BrowserType.EDGE;
+
 
 public class DriverFactory {
 
     public WebDriver initializeDriver() {
-        String browser = System.getProperty(BROWSER, CHROME);
+        String browserKey = System.getProperty("browser", BrowserType.CHROME.getKey());
         WebDriver driver;
+
+        BrowserType browser = BrowserType.getByKey(browserKey.toLowerCase());
         switch (browser) {
             case CHROME -> {
                 WebDriverManager.chromedriver().setup();
@@ -27,11 +35,15 @@ public class DriverFactory {
                 WebDriverManager.edgedriver().setup();
                 driver = new EdgeDriver();
             }
-            default -> throw new RuntimeException("The browser is not supported!");
+            default -> throw new IllegalArgumentException("Unsupported browser: " + browserKey);
         }
 
+        configureDriver(driver);
+        return driver;
+    }
+
+    private void configureDriver(WebDriver driver) {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
-        return driver;
     }
 }
