@@ -1,18 +1,23 @@
 package com.ecommerce.pages;
 
 import com.ecommerce.base.BasePage;
-import com.ecommerce.utils.ElementInteraction;
 import io.qameta.allure.Step;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.FindBy;
 
 import static com.ecommerce.locators.CheckoutPageLocators.*;
 
 
 public class CheckoutPage extends BasePage {
 
-    private final By selectCountry_input = By.cssSelector(SELECT_COUNTRY_INPUT_CSS);
-    private final By placeOrder_button = By.cssSelector(PLACE_ORDER_BUTTON_CSS);
-    private final By searchResults_input = By.className(SEARCH_RESULTS_CLASS_NAME);
+    @FindBy(css = SELECT_COUNTRY_INPUT_CSS)
+    WebElement selectCountry_input;
+
+    @FindBy(css = PLACE_ORDER_BUTTON_CSS)
+    WebElement placeOrder_button;
+
+    @FindBy(className = SEARCH_RESULTS_CLASS_NAME)
+    WebElement searchResults_text;
 
     public CheckoutPage(WebDriver driver) {
         super(driver);
@@ -25,7 +30,7 @@ public class CheckoutPage extends BasePage {
         elementInteraction
                 .setInputWithJavaScriptExecutor(selectCountry_input, country)
                 .simulateBackspace(selectCountry_input)
-                .javascriptClick(searchResults_input);
+                .javascriptClick(searchResults_text);
         return this;
     }
 

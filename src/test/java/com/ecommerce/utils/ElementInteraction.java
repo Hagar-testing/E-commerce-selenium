@@ -17,106 +17,92 @@ import static com.ecommerce.enums.LocatorType.WITHOUT_WAIT;
 
 public class ElementInteraction {
     private final WebDriver driver;
-    private final WebDriverWait wait;
+    private final WaitUtils waitUtils;
     private final JavascriptExecutorUtils javascriptExecutorUtils;
-
-
 
     public ElementInteraction(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.waitUtils = new WaitUtils(driver);
         this.javascriptExecutorUtils = new JavascriptExecutorUtils(driver);
 
     }
 
     // Generic method to handle element visibility based on locator type
-    public WebElement locateElement(By locator, LocatorType type) {
+    public WebElement locateElement(WebElement element, LocatorType type) {
         switch (type) {
             case WITHOUT_WAIT -> {
-                return driver.findElement(locator);
+                return element;
             }
-            case WITH_WAIT -> {
-                return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-            }
-            case FULL_WAIT -> {
-                locatingElementStrategy(locator);
-                return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+            case WITH_WAIT, FULL_WAIT -> {
+                return waitUtils.waitForVisibilityOfElement(element);
             }
             default -> throw new IllegalArgumentException("Invalid locator type");
         }
     }
 
-    public WebElement locateElement(By locator){
-        return locateElement(locator, WITHOUT_WAIT);
-    }
 
     // Method to perform a simple click with element visibility wait
-    public ElementInteraction simpleClick(By locator, LocatorType type) {
-        WebElement element = locateElement(locator, type);
-        element.click();
+    public ElementInteraction simpleClick(WebElement element, LocatorType type) {
+        locateElement(element,type).click();
         return this;
     }
 
     // Overloaded method with default value for LocatorType
-    public ElementInteraction simpleClick(By locator) {
-        return simpleClick(locator, WITHOUT_WAIT);
+    public ElementInteraction simpleClick(WebElement element) {
+        return simpleClick(element,WITHOUT_WAIT);
     }
 
     // Method to perform a click with hover and element visibility wait
-    public ElementInteraction clickWithHover(By locator, LocatorType type) {
-        WebElement element = locateElement(locator, type);
+    public ElementInteraction clickWithHover(WebElement element, LocatorType type) {
         Actions actions = new Actions(driver);
-        actions.moveToElement(element).perform();
+        actions.moveToElement(locateElement(element, type)).perform();
         element.click();
         return this;
     }
 
     // Method to perform a click using JavaScript and element visibility wait
-    public ElementInteraction javascriptClick(By locator, LocatorType type) {
-        WebElement element = locateElement(locator, type);
-        javascriptExecutorUtils.executeJavaScriptClick(element);
+    public ElementInteraction javascriptClick(WebElement element, LocatorType type) {
+        javascriptExecutorUtils.executeJavaScriptClick(locateElement(element, type));
         return this;
     }
 
-    public ElementInteraction javascriptClick(By locator){
-        return javascriptClick(locator, WITHOUT_WAIT);
+    public ElementInteraction javascriptClick(WebElement element){
+        return javascriptClick(element, WITHOUT_WAIT);
     }
 
     // Other methods like type, select, etc. can be added here
 
     // Method to handle the full locating strategy (similar to your original locatingElementStrategy)
-    private void locatingElementStrategy(By locator) {
-        // Implement the full locating strategy here
-    }
 
-    public ElementInteraction setInput(By locator, String text, LocatorType type){
-        locateElement(locator,type).sendKeys(text);
+
+    public ElementInteraction setInput(WebElement element, String text, LocatorType type){
+        locateElement(element,type).sendKeys(text);
         return this;
     }
 
-    public ElementInteraction setInput(By locator, String text){
-        return setInput(locator,text, WITHOUT_WAIT);
+    public ElementInteraction setInput(WebElement element, String text){
+        return setInput(element,text, WITHOUT_WAIT);
     }
 
 
     // Method to set input text using JavaScriptExecutor
-    public ElementInteraction setInputWithJavaScriptExecutor(By locator, String text, LocatorType type) {
-        javascriptExecutorUtils.sendInput(locateElement(locator,type), text);
+    public ElementInteraction setInputWithJavaScriptExecutor(WebElement element, String text, LocatorType type) {
+        javascriptExecutorUtils.sendInput(locateElement(element,type), text);
         return this;
     }
 
-    public ElementInteraction setInputWithJavaScriptExecutor(By locator, String text) {
-        return setInputWithJavaScriptExecutor(locator,text,WITHOUT_WAIT);
+    public ElementInteraction setInputWithJavaScriptExecutor(WebElement element, String text) {
+        return setInputWithJavaScriptExecutor(element,text,WITHOUT_WAIT);
     }
 
     // Method to simulate Backspace key press using sendKeys
-    public ElementInteraction simulateBackspace(By locator, LocatorType type) {
-        locateElement(locator,type).sendKeys(Keys.BACK_SPACE);
+    public ElementInteraction simulateBackspace(WebElement element, LocatorType type) {
+        locateElement(element,type).sendKeys(Keys.BACK_SPACE);
         return this;
     }
 
-    public ElementInteraction simulateBackspace(By locator) {
-        return simulateBackspace(locator, WITHOUT_WAIT);
+    public ElementInteraction simulateBackspace(WebElement element) {
+        return simulateBackspace(element, WITHOUT_WAIT);
     }
 
     public ElementListInteraction withList() {

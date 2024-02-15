@@ -12,14 +12,16 @@ import static com.ecommerce.locators.ThankYouPageLocators.THANK_YOU_PAGE_CLASS_N
 
 public class ThankYouPage extends BasePage {
 
-    private final By thankYou_text = By.xpath(THANK_YOU_PAGE_CLASS_NAME);
+    @FindBy(className = THANK_YOU_PAGE_CLASS_NAME)
+    WebElement thankYou_text;
 
     public ThankYouPage(WebDriver driver) {
         super(driver);
     }
+
     @Step
-    public Boolean isThankYouForPlacingOrderDisplayed(){
-        return elementInteraction.locateElement(thankYou_text).isDisplayed();
+    public Boolean isThankYouForPlacingOrderDisplayed() {
+        return thankYou_text.isDisplayed();
     }
 
 }

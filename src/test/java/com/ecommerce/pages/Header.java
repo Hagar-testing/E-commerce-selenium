@@ -9,12 +9,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import static com.ecommerce.locators.CheckoutPageLocators.SELECT_COUNTRY_INPUT_CSS;
 import static com.ecommerce.locators.HeaderLocators.PRODUCTS_COUNT_CART_XPATH;
 
 public class Header extends BasePage {
-
-    private final By productsCountCart_text = By.cssSelector(PRODUCTS_COUNT_CART_XPATH);
+    @FindBy(xpath = PRODUCTS_COUNT_CART_XPATH)
+    WebElement productsCountCart_text;
 
     public Header(WebDriver driver) {
         super(driver);
@@ -28,7 +27,7 @@ public class Header extends BasePage {
     @Step
     public int getCartItemsCount() throws InterruptedException {
         Thread.sleep(1000);
-        return Integer.parseInt(elementInteraction.locateElement(productsCountCart_text).getText());
+        return Integer.parseInt(productsCountCart_text.getText());
     }
 
 

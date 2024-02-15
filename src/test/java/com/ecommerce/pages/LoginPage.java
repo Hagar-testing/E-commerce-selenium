@@ -13,10 +13,17 @@ import static com.ecommerce.locators.LoginLocators.*;
 
 public class LoginPage extends BasePage {
 
-    private final By mail_input = By.id(USER_EMAIL_ID);
-    private final By password_input = By.id(USER_PASSWORD_ID);
-    private final By login_button= By.id(LOGIN_BTN_ID);
-    private final By errorMessage_text = By.xpath(ERROR_MESSAGE_XPATH);
+    @FindBy(id = USER_EMAIL_ID)
+    WebElement mail_input;
+
+    @FindBy(id = USER_PASSWORD_ID)
+    WebElement password_input;
+
+    @FindBy(id = LOGIN_BTN_ID)
+    WebElement login_button;
+
+    @FindBy(xpath = ERROR_MESSAGE_XPATH)
+    WebElement errorMessage_text;
 
 
     public LoginPage(WebDriver driver) {
@@ -39,7 +46,7 @@ public class LoginPage extends BasePage {
 
     @Step
     public String getErrorMessage(){
-        return elementInteraction.locateElement(errorMessage_text).getText();
+        return errorMessage_text.getText();
     }
 
 }
