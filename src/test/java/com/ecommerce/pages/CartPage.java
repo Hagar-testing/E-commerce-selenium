@@ -1,6 +1,7 @@
 package com.ecommerce.pages;
 
 import com.ecommerce.base.BasePage;
+import com.ecommerce.enums.LocatorType;
 import com.ecommerce.utils.ElementInteraction;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
@@ -25,7 +26,7 @@ public class CartPage extends BasePage {
 
     @Step
     public CheckoutPage clickOnCheckoutButton() {
-        elementInteraction.javascriptClick(checkout_button);
+        elementInteraction.javascriptClick(checkout_button, LocatorType.WITH_WAIT);
         return new CheckoutPage(driver);
     }
 
