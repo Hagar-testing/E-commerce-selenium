@@ -18,7 +18,7 @@ import static com.ecommerce.enums.BrowserType.EDGE;
 public class DriverFactory {
 
     public WebDriver initializeDriver() {
-        String browserKey = System.getProperty("browser", BrowserType.CHROME.getKey());
+        String browserKey = System.getProperty(BROWSER, CHROME.getKey());
         WebDriver driver;
 
         BrowserType browser = BrowserType.getByKey(browserKey.toLowerCase());
