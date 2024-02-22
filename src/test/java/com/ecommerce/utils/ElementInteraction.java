@@ -44,6 +44,7 @@ public class ElementInteraction {
     // Method to perform a simple click with element visibility wait
     public ElementInteraction simpleClick(WebElement element, LocatorType type) {
         locateElement(element,type).click();
+        logElementActionStep(element, "Simple click on");
         return this;
     }
 
@@ -62,7 +63,10 @@ public class ElementInteraction {
 
     // Method to perform a click using JavaScript and element visibility wait
     public ElementInteraction javascriptClick(WebElement element, LocatorType type) {
-        javascriptExecutorUtils.executeJavaScriptClick(locateElement(element, type));
+        WebElement element1 = locateElement(element, type);
+        javascriptExecutorUtils.executeJavaScriptClick(element1);
+        logElementActionStep(element, "javascript click on");
+
         return this;
     }
 
@@ -77,6 +81,8 @@ public class ElementInteraction {
 
     public ElementInteraction setInput(WebElement element, String text, LocatorType type){
         locateElement(element,type).sendKeys(text);
+        logElementActionStep(element, "set input [ " + text + " ] to ");
+
         return this;
     }
 
@@ -88,6 +94,8 @@ public class ElementInteraction {
     // Method to set input text using JavaScriptExecutor
     public ElementInteraction setInputWithJavaScriptExecutor(WebElement element, String text, LocatorType type) {
         javascriptExecutorUtils.sendInput(locateElement(element,type), text);
+        logElementActionStep(element, "set input [ " + text + "] with java script executor to ");
+
         return this;
     }
 
@@ -98,6 +106,8 @@ public class ElementInteraction {
     // Method to simulate Backspace key press using sendKeys
     public ElementInteraction simulateBackspace(WebElement element, LocatorType type) {
         locateElement(element,type).sendKeys(Keys.BACK_SPACE);
+        logElementActionStep(element, "Click on back space");
+
         return this;
     }
 
@@ -107,5 +117,19 @@ public class ElementInteraction {
 
     public ElementListInteraction withList() {
         return new ElementListInteraction(driver);
+    }
+
+    private static void logElementActionStep(WebElement element,String action) {
+
+        try {
+            String elementName = element.getAccessibleName();
+            String actionText = (elementName != null && !elementName.isEmpty()) ? action : element.toString();
+            Logger.logStep("[Element Action] " + action + " [" + actionText + "] element");
+
+        } catch (Exception e){
+            Logger.logStep("[Element Action] " + action + " [" + element + "] element");
+
+        }
+
     }
 }
