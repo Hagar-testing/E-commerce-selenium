@@ -26,7 +26,7 @@ public class CartPage extends BasePage {
 
     @Step
     public CheckoutPage clickOnCheckoutButton() {
-        elementInteraction.javascriptClick(checkout_button, LocatorType.WITH_WAIT);
+        elementInteraction.javascriptClick(checkout_button);
         return new CheckoutPage(driver);
     }
 
