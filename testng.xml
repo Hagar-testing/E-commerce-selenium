@@ -2,6 +2,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite" parallel="methods" thread-count="10">
 
+    <listeners>
+        <listener class-name="com.ecommerce.listeners.TestngListener"/>
+    </listeners>
+
     <test name="authentication">
         <classes>
             <class name="com.ecommerce.testcases.LoginTest"/>
@@ -15,6 +19,5 @@
             <class name="com.ecommerce.testcases.CheckoutTest"/>
         </classes>
     </test>
-
 
 </suite>
