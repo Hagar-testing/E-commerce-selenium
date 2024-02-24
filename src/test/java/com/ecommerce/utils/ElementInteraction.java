@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
 
 import static com.ecommerce.enums.LocatorType.LOCATE_ONLY;
 
@@ -16,7 +15,6 @@ public class ElementInteraction {
     private final WebDriver driver;
     private final WaitUtils waitUtils;
     private final JavascriptExecutorUtils javascriptExecutorUtils;
-    private static final Logger logger = LogManager.getLogger(ElementInteraction.class);
     public ElementInteraction(WebDriver driver) {
         this.driver = driver;
         this.waitUtils = new WaitUtils(driver);
@@ -61,8 +59,8 @@ public class ElementInteraction {
     // Method to perform a click using JavaScript and element visibility wait
     public ElementInteraction javascriptClick(WebElement element, LocatorType type) {
         WebElement element1 = locateElement(element, type);
-        javascriptExecutorUtils.executeJavaScriptClick(element1);
         logElementActionStep(element, "javascript click on");
+        javascriptExecutorUtils.executeJavaScriptClick(element1);
 
         return this;
     }
@@ -116,10 +114,9 @@ public class ElementInteraction {
         return new ElementListInteraction(driver);
     }
 
-    private static void logElementActionStep(WebElement element,String action) {
-
-       // Logger.logStep("[Element Action] " + action + " [" + element + "] element");
-
-        logger.info("[Element Action] " + action + " [" + element + "] element");
+    private static void logElementActionStep(WebElement element, String action) {
+        String data = element.getAccessibleName().isEmpty() ? element.toString() : element.getAccessibleName();
+        Logger.logStep("[Element Interaction] " + action + " [" + data + "] element");
     }
+
 }
