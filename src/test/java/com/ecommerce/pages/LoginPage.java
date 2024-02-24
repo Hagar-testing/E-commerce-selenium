@@ -30,6 +30,7 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
+    @Step
     public ProductsPage login(String email, String pass){
         elementInteraction
                 .setInput(mail_input, email)
