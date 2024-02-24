@@ -1,13 +1,15 @@
 package com.ecommerce.utils;
 
 import com.ecommerce.enums.LocatorType;
-import org.apache.logging.log4j.LogManager;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.apache.logging.log4j.Logger;
-import static com.ecommerce.enums.LocatorType.WITHOUT_WAIT;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+
+import static com.ecommerce.enums.LocatorType.LOCATE_ONLY;
 
 
 public class ElementInteraction {
@@ -25,7 +27,7 @@ public class ElementInteraction {
     // Generic method to handle element visibility based on locator type
     public WebElement locateElement(WebElement element, LocatorType type) {
         switch (type) {
-            case WITHOUT_WAIT -> {
+            case LOCATE_ONLY -> {
                 return element;
             }
             case WITH_WAIT, FULL_WAIT -> {
@@ -45,7 +47,7 @@ public class ElementInteraction {
 
     // Overloaded method with default value for LocatorType
     public ElementInteraction simpleClick(WebElement element) {
-        return simpleClick(element,WITHOUT_WAIT);
+        return simpleClick(element, LOCATE_ONLY);
     }
 
     // Method to perform a click with hover and element visibility wait
@@ -66,7 +68,7 @@ public class ElementInteraction {
     }
 
     public ElementInteraction javascriptClick(WebElement element){
-        return javascriptClick(element, WITHOUT_WAIT);
+        return javascriptClick(element, LOCATE_ONLY);
     }
 
     // Other methods like type, select, etc. can be added here
@@ -82,7 +84,7 @@ public class ElementInteraction {
     }
 
     public ElementInteraction setInput(WebElement element, String text){
-        return setInput(element,text, WITHOUT_WAIT);
+        return setInput(element,text, LOCATE_ONLY);
     }
 
 
@@ -95,7 +97,7 @@ public class ElementInteraction {
     }
 
     public ElementInteraction setInputWithJavaScriptExecutor(WebElement element, String text) {
-        return setInputWithJavaScriptExecutor(element,text,WITHOUT_WAIT);
+        return setInputWithJavaScriptExecutor(element,text, LOCATE_ONLY);
     }
 
     // Method to simulate Backspace key press using sendKeys
@@ -107,7 +109,7 @@ public class ElementInteraction {
     }
 
     public ElementInteraction simulateBackspace(WebElement element) {
-        return simulateBackspace(element, WITHOUT_WAIT);
+        return simulateBackspace(element, LOCATE_ONLY);
     }
 
     public ElementListInteraction withList() {
