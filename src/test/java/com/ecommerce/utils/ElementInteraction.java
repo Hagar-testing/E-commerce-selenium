@@ -9,7 +9,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 
 import static com.ecommerce.enums.LocatorType.WITHOUT_WAIT;
@@ -19,7 +18,7 @@ public class ElementInteraction {
     private final WebDriver driver;
     private final WaitUtils waitUtils;
     private final JavascriptExecutorUtils javascriptExecutorUtils;
-
+//    private static final Logger logger = LogManager.getLogger(ElementInteraction.class);
     public ElementInteraction(WebDriver driver) {
         this.driver = driver;
         this.waitUtils = new WaitUtils(driver);
@@ -121,15 +120,8 @@ public class ElementInteraction {
 
     private static void logElementActionStep(WebElement element,String action) {
 
-        try {
-            String elementName = element.getAccessibleName();
-            String actionText = (elementName != null && !elementName.isEmpty()) ? action : element.toString();
-            Logger.logStep("[Element Action] " + action + " [" + actionText + "] element");
+        Logger.logStep("[Element Action] " + action + " [" + element + "] element");
 
-        } catch (Exception e){
-            Logger.logStep("[Element Action] " + action + " [" + element + "] element");
-
-        }
 
     }
 }
