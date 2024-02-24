@@ -1,16 +1,12 @@
 package com.ecommerce.utils;
 
 import com.ecommerce.enums.LocatorType;
-import com.ecommerce.enums.LocatorType.*;
-import org.openqa.selenium.By;
+import org.apache.logging.log4j.LogManager;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
-
+import org.apache.logging.log4j.Logger;
 import static com.ecommerce.enums.LocatorType.WITHOUT_WAIT;
 
 
@@ -18,7 +14,7 @@ public class ElementInteraction {
     private final WebDriver driver;
     private final WaitUtils waitUtils;
     private final JavascriptExecutorUtils javascriptExecutorUtils;
-//    private static final Logger logger = LogManager.getLogger(ElementInteraction.class);
+    private static final Logger logger = LogManager.getLogger(ElementInteraction.class);
     public ElementInteraction(WebDriver driver) {
         this.driver = driver;
         this.waitUtils = new WaitUtils(driver);
@@ -120,8 +116,8 @@ public class ElementInteraction {
 
     private static void logElementActionStep(WebElement element,String action) {
 
-        Logger.logStep("[Element Action] " + action + " [" + element + "] element");
+       // Logger.logStep("[Element Action] " + action + " [" + element + "] element");
 
-
+        logger.info("[Element Action] " + action + " [" + element + "] element");
     }
 }
