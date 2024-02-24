@@ -72,18 +72,20 @@ public class TestngListener implements ISuiteListener, ITestListener, IInvokedMe
 	public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
 		ITestNGMethod testMethod = method.getTestMethod();
 
-		System.out.println("\n" + "============================================================================================");
 
 		if (!method.isConfigurationMethod()) {
+			System.out.println("\n" + "============================================================================================");
+
 			if (testMethod.getDescription() != null && !testMethod.getDescription().equals("")) {
 				ExtentReport.createTest(testMethod.getDescription());
 			} else {
 				ExtentReport.createTest(testResult.getName());
 			}
 			System.out.println("Starting Test Case: [" + testResult.getName() + "]");
+			System.out.println("============================================================================================" + "\n");
+
 		}
 
-		System.out.println("============================================================================================" + "\n");
 	}
 
 	@Override
