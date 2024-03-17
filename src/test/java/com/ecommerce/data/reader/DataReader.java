@@ -14,11 +14,11 @@ import java.util.List;
 import java.util.Map;
 
 import static com.ecommerce.constants.DataFilesPathConstants.DATA_FILE_PATH;
+import static com.ecommerce.constants.DataFilesPathConstants.projectPath;
 
 
 public class DataReader {
 
-    public static String projectPath = System.getProperty("user.dir");
 
     public Object[][] readAndProvideJsonData(String fileName) throws IOException {
         String jsonContent = FileUtils.readFileToString(new File(projectPath + DATA_FILE_PATH + fileName), StandardCharsets.UTF_8);
