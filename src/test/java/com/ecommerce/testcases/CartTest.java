@@ -17,14 +17,14 @@ public class CartTest extends BaseTest {
     @Description("Verify if the cart screen displays products after clicking on 'Add to Cart'")
     @Test(description = "Test checking if the cart screen has products after clicking on 'Add to Cart'")
     public void CheckIfCartScreenHasProductAfterClickOnAddToCart() {
-        Boolean cartHasProducts = new LoginPage(getDriver())
+        int productsInCart = new LoginPage(getDriver())
                 .load()
                 .login(getEmail(), getPassword())
                 .addFirstProductToCart()
                 .goToHeader()
                 .goToCartPage()
-                .isCartContainsProducts();
+                .getNumberOfProductsInCart();
 
-        Assert.assertTrue(cartHasProducts);
+        Assert.assertTrue(productsInCart > 0);
     }
 }

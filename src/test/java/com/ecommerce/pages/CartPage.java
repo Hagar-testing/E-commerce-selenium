@@ -2,7 +2,6 @@ package com.ecommerce.pages;
 
 import com.ecommerce.base.BasePage;
 import com.ecommerce.enums.LocatorType;
-import com.ecommerce.utils.ElementInteraction;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -31,8 +30,8 @@ public class CartPage extends BasePage {
     }
 
     @Step
-    public Boolean isCartContainsProducts(){
+    public int getNumberOfProductsInCart(){
         List<WebElement> productsInCart = driver.findElements(products_list);
-        return productsInCart.size() > 0;
+        return productsInCart.size() ;
     }
 }
