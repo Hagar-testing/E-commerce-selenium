@@ -36,6 +36,7 @@ public class ProductsTest extends BaseTest {
                 .load()
                 .login(getEmail(), getPassword())
                 .addFirstProductToCart()
+                .goToHeader()
                 .getCartItemsCount();
 
         Assert.assertEquals(cartItemsCount, Integer.valueOf(1));

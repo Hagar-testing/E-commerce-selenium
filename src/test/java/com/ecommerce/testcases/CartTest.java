@@ -21,6 +21,7 @@ public class CartTest extends BaseTest {
                 .load()
                 .login(getEmail(), getPassword())
                 .addFirstProductToCart()
+                .goToHeader()
                 .goToCartPage()
                 .isCartContainsProducts();
 

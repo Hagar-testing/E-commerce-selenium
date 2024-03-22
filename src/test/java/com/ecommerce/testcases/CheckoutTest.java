@@ -30,6 +30,7 @@ public class CheckoutTest extends BaseTest {
                 .load()
                 .login(getEmail(), getPassword())
                 .addFirstProductToCart()
+                .goToHeader()
                 .goToCartPage()
                 .clickOnCheckoutButton()
                 .selectCountry(data.get(COUNTRY_NAME))

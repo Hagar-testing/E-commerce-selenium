@@ -49,8 +49,13 @@ public class ProductsPage extends BasePage {
     }
 
     @Step
-    public Header addFirstProductToCart() {
+    public ProductsPage addFirstProductToCart() {
         addProductToList(getFirstProductFromProductsList());
+        return this;
+
+    }
+    @Step
+    public Header goToHeader() {
         return new Header(driver);
 
     }
